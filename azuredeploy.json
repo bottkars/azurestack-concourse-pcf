@@ -54,6 +54,17 @@
         "description": "Different environments in Azure. Only AzureStack is supported for now"
       }
     },
+    "servicePrincipalType": {
+      "type": "string",
+      "defaultValue": "Password",
+      "allowedValues": [
+        "Password",
+        "Certificate"
+      ],
+      "metadata": {
+        "description": "Service principal supports two types: with a password or with a certificate"
+      }
+    },
     "tenantID": {
       "type": "string",
       "minLength": 36,
@@ -143,6 +154,17 @@
         "description": "Azure Stack CA root certificate, which is base64 encoded. Get the Azure Stack CA root certificate from the Azure Stack operator, run \"cat <PATH_TO_YOUR_PEM_CERTIFICATE> | base64 -w 0\", and input the result. If not provided, \"/var/lib/waagent/Certificates.pem\" will be used. Please check https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/tree/master/docs/advanced/azure-stack#azure-stack-properties."
       }
     },
+    "useAvailabilityZones": {
+      "type": "string",
+      "defaultValue": "disabled",
+      "allowedValues": [
+        "enabled",
+        "disabled"
+      ],
+      "metadata": {
+        "description": "The flag to enable availability zones in cloud config"
+      }
+    },    
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
