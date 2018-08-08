@@ -198,7 +198,7 @@
     "devboxPrivateIPAddress": "10.20.0.100",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
-    "ubuntuOSVersion": "14.04.5-LTS",
+    "ubuntuOSVersion": "14.04.05-LTS",
     "sshKeyPath": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
     "baseUriAzureStack": "[parameters('_artifactsLocation')]",
     "filesToDownloadAzureStack": [
