@@ -578,7 +578,9 @@
       "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "Microsoft.Resources/deployments/generate-customdata"
+        "Microsoft.Resources/deployments/generate-customdata",
+        "[concat('Microsoft.Storage/storageAccounts/', variables('defaultStorageAccountName'))]",
+        "[concat('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
         "hardwareProfile": {
