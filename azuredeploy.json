@@ -4,12 +4,14 @@
   "parameters": {
     "vmName": {
       "type": "string",
+      "defaultValue": "concourse",
       "metadata": {
         "description": "Name of the vm, will be used as DNS Name for the Public IP used to access the Virtual Machine"
       }
     },
     "adminUsername": {
       "type": "string",
+      "defaultValue": "ubuntu",
       "metadata": {
         "description": "User name for the Virtual Machine"
       }
@@ -22,6 +24,7 @@
     },
     "concourseUsername": {
       "type": "string",
+      "defaultValue": "concourse",
       "metadata": {
         "description": "Login username for Concourse web portal or Fly CLI"
       }
@@ -48,7 +51,7 @@
         "AzureStack"
       ],
       "metadata": {
-        "description": "Different environments in Azure. Only AzureCloud is supported for now"
+        "description": "Different environments in Azure. Only AzureStack is supported for now"
       }
     },
     "tenantID": {
@@ -82,7 +85,7 @@
     },
     "autoDeployBosh": {
       "type": "string",
-      "defaultValue": "enabled",
+      "defaultValue": "disabled",
       "allowedValues": [
         "enabled",
         "disabled"
@@ -93,7 +96,7 @@
     },
     "autoDeployConcourse": {
       "type": "string",
-      "defaultValue": "enabled",
+      "defaultValue": "disabled",
       "allowedValues": [
         "enabled",
         "disabled"
@@ -111,7 +114,7 @@
     },
     "azureStackDomain": {
       "type": "string",
-      "defaultValue": "NotApplicableIfEnvironmentIsNotAzureStack",
+      "defaultValue": "azurestack.external",
       "metadata": {
         "description": "Azure Stack deployment domain. Please check https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/tree/master/docs/advanced/azure-stack."
       }
@@ -174,20 +177,20 @@
     "imageOffer": "UbuntuServer",
     "ubuntuOSVersion": "14.04.5-LTS",
     "sshKeyPath": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
-    "baseUriAzureCloud": "[parameters('_artifactsLocation')]",
-    "filesToDownloadAzureCloud": [
-      "[uri(variables('baseUriAzureCloud'), 'scripts/setup_env.sh')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/bosh.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/cloud.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/concourse.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/versions.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/cpi.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/custom-cpi-release.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/custom-environment.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/use-azure-dns.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/use-managed-disks.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/jumpbox-user.yml')]",
-      "[uri(variables('baseUriAzureCloud'), 'manifests/keep-failed-or-unreachable-vms.yml')]"
+    "baseUriAzureStack": "[parameters('_artifactsLocation')]",
+    "filesToDownloadAzureStack": [
+      "[uri(variables('baseUriAzureStack'), 'scripts/setup_env.sh')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/bosh.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/cloud.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/concourse.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/versions.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/cpi.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/custom-cpi-release.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/custom-environment.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/use-azure-dns.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/use-managed-disks.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/jumpbox-user.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/keep-failed-or-unreachable-vms.yml')]"
     ],
     "filesToDownload": "[variables(concat('filesToDownload', parameters('environment')))]",
     "environmentAzureStack": {
@@ -499,7 +502,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "[concat(variables('baseUriAzureCloud'), 'generate-customdata.json')]",
+          "uri": "[concat(variables('baseUriAzureStack'), 'generate-customdata.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
