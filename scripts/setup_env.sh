@@ -182,6 +182,7 @@ if [ "$environment" = "AzureStack" ]; then
   -v azure_stack_authentication=$(get_setting AZURE_STACK_AUTHENTICATION) \\
   -l ~/example_manifests/azure-stack-ca-cert.yml
 EOF
+fi
 
 chmod +x deploy_bosh.sh
 cp deploy_bosh.sh $home_dir
@@ -233,7 +234,6 @@ export BOSH_CLIENT_SECRET="\$(bosh int ~/bosh-deployment-vars.yml --path /admin_
 export BOSH_CA_CERT="\$(bosh int ~/bosh-deployment-vars.yml --path /director_ssl/ca)"
 bosh alias-env azure
 bosh -e azure login
-
 EOF
 
 chmod +x login_bosh.sh
