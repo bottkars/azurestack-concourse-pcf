@@ -219,11 +219,11 @@
     "filesToDownload": "[variables(concat('filesToDownload', parameters('environment')))]",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
-      "boshAzureCPIReleaseUrl": "https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.2.0",
-      "boshAzureCPIReleaseSha1": "d581c4181d31846e05e59054a15e09621f1e90b1",
-      "stemcellUrl": "https://s3.amazonaws.com/bosh-core-stemcells/azure/bosh-stemcell-3586.24-azure-hyperv-ubuntu-trusty-go_agent.tgz",
-      "stemcellSha1": "ddafd98aad041bc2a92fae0168ab98f2adec331e",
-      "boshCLIUrl": "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-3.0.1-linux-amd64"
+      "boshCliUrl": "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.48-linux-amd64",
+      "boshAzureCPIReleaseUrl": "https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.3.0",
+      "boshAzureCPIReleaseSha1": "990fcfa31e70c99a109b8284d35f0b4e79665559",
+      "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.26",
+      "stemcellSha1AzureTrusty": "ffaa529f54e21304c0b4d64c95f45e75d16fd235"
     },
     "environment": "[variables(concat('environment', parameters('environment')))]",
     "keepUnreachableVMs": "false"
