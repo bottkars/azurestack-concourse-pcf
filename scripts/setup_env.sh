@@ -64,13 +64,12 @@ wget $bosh_cli_url
 chmod +x ./bosh-cli-*
 mv ./bosh-cli-* /usr/local/bin/bosh
 
-# https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt?view=azure-cli-latest#install
-echo "Installing Azure CLI"
+#echo "Installing Azure CLI"
 AZ_REPO=$(lsb_release -cs)
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
 curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 retryop "apt-get install apt-transport-https"
-retryop "apt-get update && apt-get install azure-cli"
+retryop "apt-get update && apt-get install azure-cli=2.0.33-1~$AZ_REPO"
 
 
 echo "Prepare manifests"
@@ -135,8 +134,6 @@ az cloud update --profile 2017-03-09-profile
 az storage container create --name bosh --connection-string ${connection_string}
 az storage container create --name stemcell --public-access blob --connection-string ${connection_string}
 az storage table create --name stemcells --connection-string ${connection_string}
-
-
 
 echo "Prepare Bosh deployment script"
 cat > "deploy_bosh.sh" << EOF
