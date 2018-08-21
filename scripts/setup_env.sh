@@ -90,8 +90,7 @@ echo "Prepare manifests"
 manifests_dir="$home_dir/example_manifests"
 mkdir -p $manifests_dir
 cp *.yml $manifests_dir
-
-p *.yml $manifests_dir
+cp *.yml $manifests_dir
 pushd $manifests_dir > /dev/null
   # Enable availability zones if needed
   use_availability_zones=$(get_setting USE_AVAILABILITY_ZONES)
@@ -259,4 +258,3 @@ fi
 echo "Start to run deploy_concourse.sh..."
 su -c "./deploy_concourse.sh" - $username
 echo "Finish"
-
