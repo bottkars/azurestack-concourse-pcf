@@ -49,17 +49,10 @@ custom_data_file="/var/lib/cloud/instance/user-data.txt"
 settings=$(cat ${custom_data_file})
 tenant_id=$1
 client_id=$2
-# Service Principal
-service_principal_type=$(get_setting SERVICE_PRINCIPAL_TYPE)
-base64_encoded_client_secret_or_certificate=$3
+client_secret=$3
 environment=$(get_setting ENVIRONMENT)
 username=$(get_setting ADMIN_USER_NAME)
 home_dir="/home/$username"
-
-function client_secret_or_certificate() {
-  echo ${base64_encoded_client_secret_or_certificate} | base64 --decode
-}
-
 
 # https://bosh.io/docs/cli-v2-install/#additional-dependencies
 echo "Installing OS specified dependencies for bosh create-env command"
@@ -100,6 +93,24 @@ cp *.yml $manifests_dir
 cp *.yml $manifests_dir
 pushd $manifests_dir > /dev/null
   # Enable availability zones if needed
+  use_availability_zones=$(get_setting USE_AVAILABILITY_ZONES)
+  if [ "$use_availability_zones" == "enabled" ]; then
+    sed -i '1,5d' cloud-config.yml
+    cat - cloud-config.yml > cloud-config-azs-enabled.yml << EOF
+---
+azs:
+- name: z1
+  cloud_properties:
+    availability_zone: '1'
+- name: z2
+  cloud_properties:
+    availability_zone: '2'
+- name: z3
+  cloud_properties:
+    availability_zone: '3'
+EOF
+    mv cloud-config-azs-enabled.yml cloud-config.yml
+  fi
   if [ "${service_principal_type}" == "Certificate" ]; then
     cat > service-principal-certificate.yml << EOF
 certificate: |-
@@ -152,19 +163,8 @@ bosh create-env ~/example_manifests/bosh.yml \\
   -v subscription_id=$(get_setting SUBSCRIPTION_ID) \\
   -v tenant_id=${tenant_id} \\
   -v client_id=${client_id} \\
+  -v client_secret=${client_secret} \\
 EOF
-
-if [ "${service_principal_type}" == "Password" ]; then
-  cat >> "deploy_bosh.sh" << EOF
-  -v client_secret="$(client_secret_or_certificate)" \\
-EOF
-elif [ "${service_principal_type}" == "Certificate" ]; then
-  cat >> "deploy_bosh.sh" << EOF
-  -o ~/example_manifests/use-service-principal-with-certificate.yml \\
-  -l ~/example_manifests/service-principal-certificate.yml \\
-EOF
-fi
-
 
 if [ $(get_setting KEEP_UNREACHABLE_VMS) = "true" ]; then
   cat >> "deploy_bosh.sh" <<EOF
