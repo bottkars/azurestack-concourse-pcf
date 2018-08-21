@@ -443,7 +443,7 @@
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[concat(toLower(parameters('vmName')), '-', uniqueString(resourceGroup().id))]"
+          "domainNameLabel": "[toLower(parameters('vmName'))]"
         }
       }
     },
