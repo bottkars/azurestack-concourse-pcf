@@ -72,19 +72,6 @@ curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 retryop "apt-get install apt-transport-https"
 retryop "apt-get update && apt-get install azure-cli"
 
-echo "Creating the containers (bosh and stemcell) and the table (stemcells) in the default storage account"
-default_storage_account=$(get_setting DEFAULT_STORAGE_ACCOUNT_NAME)
-default_storage_access_key=$(get_setting STORAGE_ACCESS_KEY)
-endpoint_suffix=$(get_setting SERVICE_HOST_BASE)
-connection_string="DefaultEndpointsProtocol=https;AccountName=${default_storage_account};AccountKey=${default_storage_access_key};EndpointSuffix=${endpoint_suffix}"
-if [ "$environment" = "AzureStack" ]; then
-  cat /var/lib/waagent/Certificates.pem >> /etc/ssl/certs/ca-certificates.crt
-  export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-  az cloud update --profile 2017-03-09-profile
-fi
-az storage container create --name bosh --connection-string ${connection_string}
-az storage container create --name stemcell --public-access blob --connection-string ${connection_string}
-az storage table create --name stemcells --connection-string ${connection_string}
 
 echo "Prepare manifests"
 manifests_dir="$home_dir/example_manifests"
@@ -133,6 +120,23 @@ EOF
 popd  > /dev/null
 chmod 775 $manifests_dir
 chmod 644 $manifests_dir/*
+
+echo "Creating the containers (bosh and stemcell) and the table (stemcells) in the default storage account"
+default_storage_account=$(get_setting DEFAULT_STORAGE_ACCOUNT_NAME)
+default_storage_access_key=$(get_setting STORAGE_ACCESS_KEY)
+endpoint_suffix=$(get_setting SERVICE_HOST_BASE)
+connection_string="DefaultEndpointsProtocol=https;AccountName=${default_storage_account};AccountKey=${default_storage_access_key};EndpointSuffix=${endpoint_suffix}"
+if [ "$environment" = "AzureStack" ]; then
+  cat /var/lib/waagent/Certificates.pem >> /etc/ssl/certs/ca-certificates.crt
+  export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
+  az cloud update --profile 2017-03-09-profile
+fi
+az cloud update --profile 2017-03-09-profile
+az storage container create --name bosh --connection-string ${connection_string}
+az storage container create --name stemcell --public-access blob --connection-string ${connection_string}
+az storage table create --name stemcells --connection-string ${connection_string}
+
+
 
 echo "Prepare Bosh deployment script"
 cat > "deploy_bosh.sh" << EOF
