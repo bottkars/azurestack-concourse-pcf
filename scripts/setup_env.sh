@@ -233,7 +233,9 @@ export BOSH_CLIENT_SECRET="\$(bosh int ~/bosh-deployment-vars.yml --path /admin_
 export BOSH_CA_CERT="\$(bosh int ~/bosh-deployment-vars.yml --path /director_ssl/ca)"
 bosh alias-env azure
 bosh -e azure login
+
 EOF
+
 chmod +x login_bosh.sh
 cp login_bosh.sh $home_dir
 
