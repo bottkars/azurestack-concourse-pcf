@@ -56,8 +56,6 @@ environment=$(get_setting ENVIRONMENT)
 username=$(get_setting ADMIN_USER_NAME)
 home_dir="/home/$username"
 
-
-
 function client_secret_or_certificate() {
   echo ${base64_encoded_client_secret_or_certificate} | base64 --decode
 }
@@ -102,24 +100,6 @@ cp *.yml $manifests_dir
 cp *.yml $manifests_dir
 pushd $manifests_dir > /dev/null
   # Enable availability zones if needed
-  use_availability_zones=$(get_setting USE_AVAILABILITY_ZONES)
-  if [ "$use_availability_zones" == "enabled" ]; then
-    sed -i '1,5d' cloud-config.yml
-    cat - cloud-config.yml > cloud-config-azs-enabled.yml << EOF
----
-azs:
-- name: z1
-  cloud_properties:
-    availability_zone: '1'
-- name: z2
-  cloud_properties:
-    availability_zone: '2'
-- name: z3
-  cloud_properties:
-    availability_zone: '3'
-EOF
-    mv cloud-config-azs-enabled.yml cloud-config.yml
-  fi
   if [ "${service_principal_type}" == "Certificate" ]; then
     cat > service-principal-certificate.yml << EOF
 certificate: |-
@@ -157,7 +137,6 @@ bosh create-env ~/example_manifests/bosh.yml \\
   -o ~/example_manifests/custom-environment.yml \\
   -o ~/example_manifests/use-azure-dns.yml \\
   -o ~/example_manifests/jumpbox-user.yml \\
-  -o ~/example_manifests/use-managed-disks.yml \\
   -v director_name=azure \\
   -v internal_cidr=$(get_setting SUBNET_ADDRESS_RANGE_FOR_BOSH) \\
   -v internal_gw=$(get_setting SUBNET_GATEWAY_FOR_BOSH) \\
