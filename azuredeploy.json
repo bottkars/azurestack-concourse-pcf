@@ -213,7 +213,8 @@
       "[uri(variables('baseUriAzureStack'), 'manifests/use-azure-dns.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/use-managed-disks.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/jumpbox-user.yml')]",
-      "[uri(variables('baseUriAzureStack'), 'manifests/keep-failed-or-unreachable-vms.yml')]"
+      "[uri(variables('baseUriAzureStack'), 'manifests/keep-failed-or-unreachable-vms.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/azure-stack-properties.yml')]"
     ],
     "filesToDownload": "[variables(concat('filesToDownload', parameters('environment')))]",
     "environmentAzureStack": {
