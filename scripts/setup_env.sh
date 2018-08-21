@@ -173,6 +173,17 @@ if [ $(get_setting KEEP_UNREACHABLE_VMS) = "true" ]; then
   -o ~/example_manifests/keep-failed-or-unreachable-vms.yml \\
 EOF
 fi
+
+if [ "$environment" = "AzureStack" ]; then
+  cat >> "deploy_bosh.sh" << EOF
+  -v storage_account_name=$(get_setting DEFAULT_STORAGE_ACCOUNT_NAME) \\
+  -o ~/example_manifests/azure-stack-properties.yml \\
+  -v azure_stack_domain=$(get_setting AZURE_STACK_DOMAIN) \\
+  -v azure_stack_resource=$(get_setting AZURE_STACK_RESOURCE) \\
+  -v azure_stack_authentication=$(get_setting AZURE_STACK_AUTHENTICATION) \\
+  -l ~/example_manifests/azure-stack-ca-cert.yml
+EOF
+
 chmod +x deploy_bosh.sh
 cp deploy_bosh.sh $home_dir
 
