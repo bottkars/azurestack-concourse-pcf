@@ -219,8 +219,7 @@ bosh -e azure -n deploy -d concourse ~/example_manifests/concourse.yml \\
   -v basic_auth_username=$(get_setting CONCOURSE_USERNAME) \\
   -v basic_auth_password='$(escape_password $(get_setting CONCOURSE_PASSWORD))' \\
   -v web_ip=$(get_setting CONCOURSE_PUBLIC_IP) \\
-  -v external_url="http://$(get_setting CONCOURSE_PUBLIC_IP):8080"
-
+  -v external_url="http://$(get_setting CONCOURSE_PUBLIC_IP):8080"\\
 EOF
 
 stemcell_os_version=$(get_setting STEMCELL_OS_VERSION)
@@ -230,9 +229,9 @@ if [ "${stemcell_os_version}" = "Trusty" ]; then
 EOF
   else
     cat >> "deploy_concourse.sh" << EOF
-  -o ~/example_manifests/use-xenial-stemcell.yml \\
   -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
 EOF
+ cp  ~/example_manifests/concourse-xenial.yml  ~/example_manifests/concourse.yml
   fi
 
 
