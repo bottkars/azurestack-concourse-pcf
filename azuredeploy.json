@@ -176,6 +176,17 @@
         "description": "Azure Stack CA root certificate, which is base64 encoded. Get the Azure Stack CA root certificate from the Azure Stack operator, run \"cat <PATH_TO_YOUR_PEM_CERTIFICATE> | base64 -w 0\", and input the result. If not provided, \"/var/lib/waagent/Certificates.pem\" will be used. Please check https://github.com/cloudfoundry-incubator/bosh-azure-cpi-release/tree/master/docs/advanced/azure-stack#azure-stack-properties."
       }
     },
+    "stemcellOSVersion": {
+      "type": "string",
+      "defaultValue": "Xenial",
+      "allowedValues": [
+        "Trusty",
+        "Xenial"
+      ],
+      "metadata": {
+        "description": "The OS version of stemcell when deploying Cloud Foundry"
+      }
+    },    
     "useAvailabilityZones": {
       "type": "string",
       "defaultValue": "disabled",
