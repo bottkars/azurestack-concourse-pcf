@@ -231,7 +231,7 @@ EOF
     cat >> "deploy_concourse.sh" << EOF
   -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
 EOF
- cp  $manifests_dir/concourse-xenial.yml  $manifests_dir/concourse.yml
+ cp  "${manifests_dir}/concourse-xenial.yml"  "${manifests_dir}/concourse.yml"
   fi
 
 
