@@ -251,14 +251,14 @@
       "[uri(variables('baseUriAzureStack'), 'manifests/use-compiled-releases-xenial-stemcell.yml')]"
     ],
     "filesToDownload": "[variables(concat('filesToDownload', parameters('environment')))]",
+    "stemcellUrlAzure": "[variables(concat('stemcellUrlAzure', parameters('stemcellOSVersion')))]",
+    "stemcellSha1Azure": "[variables(concat('stemcellSha1Azure', parameters('stemcellOSVersion')))]",
+    "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.26",
+    "stemcellSha1AzureTrusty": "ffaa529f54e21304c0b4d64c95f45e75d16fd235",
+    "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97",
+    "stemcellSha1AzureXenial": "b407306402be8196895e5be43a6f0caaef5fcd07",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
-      "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.26",
-      "stemcellSha1AzureTrusty": "ffaa529f54e21304c0b4d64c95f45e75d16fd235",
-      "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97",
-      "stemcellSha1AzureXenial": "b407306402be8196895e5be43a6f0caaef5fcd07",
-      "stemcellUrlAzure": "[variables(concat('stemcellUrlAzure', parameters('stemcellOSVersion')))]",
-      "stemcellSha1Azure": "[variables(concat('stemcellSha1Azure', parameters('stemcellOSVersion')))]",
       "boshCliUrl": "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.48-linux-amd64",
       "boshAzureCPIReleaseUrl": "https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.3.0",
       "boshAzureCPIReleaseSha1": "990fcfa31e70c99a109b8284d35f0b4e79665559"
