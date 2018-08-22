@@ -222,6 +222,20 @@ bosh -e azure -n deploy -d concourse ~/example_manifests/concourse.yml \\
   -v external_url="http://$(get_setting CONCOURSE_PUBLIC_IP):8080"
 
 EOF
+
+stemcell_os_version=$(get_setting STEMCELL_OS_VERSION)
+if [ "${stemcell_os_version}" = "Trusty" ]; then
+    cat >> "deploy_concourse.sh" << EOF
+  -o ~/example_manifests/use-compiled-releases.yml \\
+EOF
+  else
+    cat >> "deploy_concourse.sh" << EOF
+  -o ~/example_manifests/use-xenial-stemcell.yml \\
+  -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
+EOF
+  fi
+
+
 chmod +x deploy_concourse.sh
 cp deploy_concourse.sh $home_dir
 
