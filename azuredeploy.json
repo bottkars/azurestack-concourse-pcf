@@ -9,7 +9,18 @@
         "description": "Name of the vm, will be used as DNS Name for the Public IP used to access the Virtual Machine"
       }
     },
-    "adminUsername": {
+    "ubuntuOSVersion": {
+      "type": "string",
+      "defaultValue": "16.04-LTS",
+      "allowedValues": [
+        "14.04.05-LTS",
+        "16.04-LTS"
+      ],
+      "metadata": {
+        "description": "User name for the Virtual Machine"
+      }
+    },
+      "adminUsername": {
       "type": "string",
       "defaultValue": "ubuntu",
       "metadata": {
@@ -92,6 +103,17 @@
       "defaultValue": "Standard_D2_v2",
       "metadata": {
         "description": "Please check if the region support this VM size https://azure.microsoft.com/en-us/regions/#services. For more information about virtual machine sizes, see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/"
+      }
+    },
+    "stemcellOSVersion": {
+      "type": "string",
+      "defaultValue": "Xenial",
+      "allowedValues": [
+        "Trusty",
+        "Xenial"
+      ],
+      "metadata": {
+        "description": "The OS version of stemcell when deploying Cloud Foundry"
       }
     },
     "autoDeployBosh": {
@@ -198,7 +220,6 @@
     "devboxPrivateIPAddress": "10.20.0.100",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
-    "ubuntuOSVersion": "14.04.05-LTS",
     "sshKeyPath": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
     "baseUriAzureStack": "[parameters('_artifactsLocation')]",
     "filesToDownloadAzureStack": [
@@ -214,16 +235,22 @@
       "[uri(variables('baseUriAzureStack'), 'manifests/use-managed-disks.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/jumpbox-user.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/keep-failed-or-unreachable-vms.yml')]",
-      "[uri(variables('baseUriAzureStack'), 'manifests/azure-stack-properties.yml')]"
+      "[uri(variables('baseUriAzureStack'), 'manifests/azure-stack-properties.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/use-xenial-stemcell.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/use-compiled-releases-xenial-stemcell.yml')]"
     ],
     "filesToDownload": "[variables(concat('filesToDownload', parameters('environment')))]",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
+      "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.26",
+      "stemcellSha1AzureTrusty": "ffaa529f54e21304c0b4d64c95f45e75d16fd235",
+      "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97",
+      "stemcellSha1AzureXenial": "b407306402be8196895e5be43a6f0caaef5fcd07",
+      "stemcellUrlAzure": "[variables(concat('stemcellUrlAzure', parameters('stemcellOSVersion')))]",
+      "stemcellSha1Azure": "[variables(concat('stemcellSha1Azure', parameters('stemcellOSVersion')))]",
       "boshCliUrl": "https://s3.amazonaws.com/bosh-cli-artifacts/bosh-cli-2.0.48-linux-amd64",
       "boshAzureCPIReleaseUrl": "https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.3.0",
-      "boshAzureCPIReleaseSha1": "990fcfa31e70c99a109b8284d35f0b4e79665559",
-      "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.26",
-      "stemcellSha1AzureTrusty": "ffaa529f54e21304c0b4d64c95f45e75d16fd235"
+      "boshAzureCPIReleaseSha1": "990fcfa31e70c99a109b8284d35f0b4e79665559"
     },
     "environment": "[variables(concat('environment', parameters('environment')))]",
     "keepUnreachableVMs": "false"
@@ -553,8 +580,8 @@
               "SERVICE_HOST_BASE": "[variables('environment').serviceHostBase]",
               "BOSH_AZURE_CPI_RELEASE_URL": "[variables('environment').boshAzureCPIReleaseUrl]",
               "BOSH_AZURE_CPI_RELEASE_SHA1": "[variables('environment').boshAzureCPIReleaseSha1]",
-              "STEMCELL_URL": "[variables('environment').stemcellUrlAzureTrusty]",
-              "STEMCELL_SHA1": "[variables('environment').stemcellSha1AzureTrusty]",
+              "STEMCELL_URL": "[variables('environment').stemcellUrlAzure]",
+              "STEMCELL_SHA1": "[variables('environment').stemcellSha1Azure]",
               "BOSH_CLI_URL": "[variables('environment').boshCLIUrl]",
               "KEEP_UNREACHABLE_VMS": "[variables('keepUnreachableVMs')]",
               "AUTO_DEPLOY_BOSH": "[parameters('autoDeployBosh')]",
@@ -607,7 +634,7 @@
           "imageReference": {
             "publisher": "[variables('imagePublisher')]",
             "offer": "[variables('imageOffer')]",
-            "sku": "[variables('ubuntuOSVersion')]",
+            "sku": "[parameters('ubuntuOSVersion')]",
             "version": "latest"
           },
           "osDisk": {
