@@ -238,6 +238,7 @@
       "[uri(variables('baseUriAzureStack'), 'manifests/bosh.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/cloud.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/concourse.yml')]",
+      "[uri(variables('baseUriAzureStack'), 'manifests/concourse-xenial.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/versions.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/cpi.yml')]",
       "[uri(variables('baseUriAzureStack'), 'manifests/custom-cpi-release.yml')]",
