@@ -209,9 +209,9 @@
         "none"
       ],
       "metadata": {
-        "description": "The flag to enable availability zones in cloud config"
+        "description": "The log level for Bosh"
       }
-    }        
+    },        
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
