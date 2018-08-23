@@ -197,7 +197,21 @@
       "metadata": {
         "description": "The flag to enable availability zones in cloud config"
       }
-    },    
+    },
+    "boshLogLevel": {
+      "type": "string",
+      "defaultValue": "error",
+      "allowedValues": [
+        "debug",
+        "info",        
+        "warn",
+        "error",
+        "none"
+      ],
+      "metadata": {
+        "description": "The flag to enable availability zones in cloud config"
+      }
+    }        
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -572,6 +586,7 @@
           "customData": {
             "value": {
               "VNET_NAME": "[variables('virtualNetworkName')]",
+              "LOG_LEVEL_FOR_BOSH": "[parameters('boshLogLevel')]",
               "SUBNET_NAME_FOR_BOSH": "[variables('subnetNameForBosh')]",
               "SUBNET_ADDRESS_RANGE_FOR_BOSH": "[variables('subnetAddressRangeForBosh')]",
               "BOSH_VM_SIZE": "[parameters('boshVmSize')]",
