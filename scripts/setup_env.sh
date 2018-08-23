@@ -228,9 +228,6 @@ if [ "${stemcell_os_version}" = "Trusty" ]; then
   -o ~/example_manifests/use-compiled-releases.yml \\
 EOF
   else
-    cat >> "deploy_concourse.sh" << EOF
-  -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
-EOF
  cp  "${manifests_dir}/concourse-xenial.yml"  "${manifests_dir}/concourse.yml"
   fi
 
