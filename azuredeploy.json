@@ -687,7 +687,6 @@
           "timestamp": 1
         },
         "protectedSettings": {
-          "timestamp": 2,
 	        "commandToExecute": "[concat('bash -l -c \"./setup_env.sh', ' ', parameters('tenantID'), ' ', parameters('clientID'), ' ', parameters('clientSecret'), ' 2>&1 | tee /home/', parameters('adminUsername'), '/install.log\"')]"
         }
       }
