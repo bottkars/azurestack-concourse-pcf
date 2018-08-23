@@ -681,9 +681,7 @@
         "typeHandlerVersion": "2.0",
         "autoUpgradeMinorVersion": true,
         "settings": {
-          "fileUris": "[variables('filesToDownload')]"
-        },
-        "settings" :{
+          "fileUris": "[variables('filesToDownload')]",
           "timestamp": 1
         },
         "protectedSettings": {
