@@ -13,9 +13,9 @@ download the fly executable into you path
 login fly cli
 
 ```bash
-fly -t ci login -c http://10.244.15.2:8080
+fly -t ci login -c http://vmjump-concourse.local.cloudapp.azurestack.external:8080
 ```
-
+default user ise ciuser / Password123!  
 clone into https://github.com/pivotal-cf/pcf-pipelines/tree/master/install-pcf/azure
 
 ```bash
