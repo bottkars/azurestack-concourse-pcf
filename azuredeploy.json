@@ -507,7 +507,10 @@
       "name": "[concat(parameters('vmName'), '-concourse')]",
       "location": "[parameters('location')]",
       "properties": {
-        "publicIPAllocationMethod": "static"
+        "publicIPAllocationMethod": "static",
+        "dnsSettings": {
+          "domainNameLabel": "[toLower(concat(parameters('vmName'),'-concourse'))]"
+        }
       }
     },
     {
