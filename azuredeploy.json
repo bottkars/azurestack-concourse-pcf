@@ -243,7 +243,7 @@
     "vmSize": "Standard_D1",
     "nicName": "[parameters('vmName')]",
     "devboxPrivateIPAddress": "10.20.0.100",
-    "imagePublisher": "canonical",
+    "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
     "sshKeyPath": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
     "baseUriAzureStack": "[parameters('_artifactsLocation')]",
