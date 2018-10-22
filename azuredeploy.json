@@ -670,7 +670,9 @@
           "osDisk": {
             "managedDisk": {
               "storageAccountType": "Standard_LRS"
-            }
+            },
+            "caching": "ReadWrite",
+            "createOption": "FromImage"
           }
         },
         "networkProfile": {
