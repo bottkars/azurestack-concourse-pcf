@@ -20,7 +20,7 @@
         "description": "User name for the Virtual Machine"
       }
     },
-      "adminUsername": {
+    "adminUsername": {
       "type": "string",
       "defaultValue": "ubuntu",
       "metadata": {
@@ -186,7 +186,7 @@
       "metadata": {
         "description": "The OS version of stemcell when deploying Cloud Foundry"
       }
-    },    
+    },
     "useAvailabilityZones": {
       "type": "string",
       "defaultValue": "disabled",
@@ -203,7 +203,7 @@
       "defaultValue": "error",
       "allowedValues": [
         "debug",
-        "info",        
+        "info",
         "warn",
         "error",
         "none"
@@ -211,7 +211,7 @@
       "metadata": {
         "description": "The log level for Bosh"
       }
-    },        
+    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -481,15 +481,6 @@
       }
     },
     {
-      "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('defaultStorageAccountName')]",
-      "apiVersion": "2015-06-15",
-      "location": "[parameters('location')]",
-      "properties": {
-        "accountType": "[variables('storageAccountType')]"
-      }
-    },
-    {
       "apiVersion": "2015-06-15",
       "type": "Microsoft.Network/publicIPAddresses",
       "name": "[concat(parameters('vmName'),'-devbox')]",
@@ -670,6 +661,7 @@
           "osDisk": {
             "managedDisk": {
               "storageAccountType": "Standard_LRS"
+            }
           }
         },
         "networkProfile": {
@@ -699,7 +691,7 @@
           "timestamp": 1
         },
         "protectedSettings": {
-	        "commandToExecute": "[concat('bash -l -c \"./setup_env.sh', ' ', parameters('tenantID'), ' ', parameters('clientID'), ' ', parameters('clientSecret'), ' 2>&1 | tee /home/', parameters('adminUsername'), '/install.log\"')]"
+          "commandToExecute": "[concat('bash -l -c \"./setup_env.sh', ' ', parameters('tenantID'), ' ', parameters('clientID'), ' ', parameters('clientSecret'), ' 2>&1 | tee /home/', parameters('adminUsername'), '/install.log\"')]"
         }
       }
     }
