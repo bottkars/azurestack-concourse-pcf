@@ -631,7 +631,7 @@
       }
     },
     {
-      "apiVersion": "2016-03-30",
+      "apiVersion": "2017-03-30",
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('vmName')]",
       "location": "[parameters('location')]",
@@ -668,12 +668,8 @@
             "version": "latest"
           },
           "osDisk": {
-            "name": "[concat(parameters('vmName'),'_OSDisk')]",
-            "caching": "ReadWrite",
-            "createOption": "FromImage",
-            "vhd": {
-              "uri": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('defaultStorageAccountName')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).primaryEndpoints.blob, variables('vmStorageAccountContainerName'),'/', variables('OSDiskName'), '.vhd')]"
-            }
+            "managedDisk": {
+              "storageAccountType": "Standard_LRS"
           }
         },
         "networkProfile": {
