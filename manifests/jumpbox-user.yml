@@ -3,8 +3,8 @@
   value:
     name: os-conf
     version: 18
-    url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=18
-    sha1: 78d79f08ff5001cc2a24f572837c7a9c59a0e796
+    url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=20.0.0
+    sha1: 7a60187f038d45e2886db9df82b72a9ab5fdcc49d
 
 - type: replace
   path: /instance_groups/name=bosh/properties/director/default_ssh_options?/gateway_user
