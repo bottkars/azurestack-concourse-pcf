@@ -64,19 +64,18 @@ wget $bosh_cli_url
 chmod +x ./bosh-cli-*
 mv ./bosh-cli-* /usr/local/bin/bosh
 
-#echo "Installing Azure CLI"
+echo "Installing Azure CLI"
 AZ_REPO=$(lsb_release -cs)
 echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | tee /etc/apt/sources.list.d/azure-cli.list
 curl -L https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
 retryop "apt-get install apt-transport-https"
-retryop "apt-get update && apt-get install azure-cli=2.0.33-1~$AZ_REPO"
+retryop "apt-get update && apt-get install azure-cli"
 
 
 echo "Prepare manifests"
 manifests_dir="$home_dir/example_manifests"
 mkdir -p $manifests_dir
 cp *.yml $manifests_dir
-cp *.yml $home_dir
 pushd $manifests_dir > /dev/null
   # Enable availability zones if needed
   use_availability_zones=$(get_setting USE_AVAILABILITY_ZONES)
@@ -128,9 +127,9 @@ connection_string="DefaultEndpointsProtocol=https;AccountName=${default_storage_
 if [ "$environment" = "AzureStack" ]; then
   cat /var/lib/waagent/Certificates.pem >> /etc/ssl/certs/ca-certificates.crt
   export REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt
-  az cloud update --profile 2017-03-09-profile
+  az cloud update --profile 2018-03-01-hybrid
 fi
-az cloud update --profile 2017-03-09-profile
+az cloud update --profile 2018-03-01-hybrid
 az storage container create --name bosh --connection-string ${connection_string}
 az storage container create --name stemcell --public-access blob --connection-string ${connection_string}
 az storage table create --name stemcells --connection-string ${connection_string}
