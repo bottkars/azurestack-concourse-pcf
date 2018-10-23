@@ -41,6 +41,14 @@ instance_groups:
           name: concourse
           password: ((postgres_password))
 
+      main_team:
+        auth:
+          local:
+            users: [test]
+
+      add_local_users:
+      - test:test
+      
   - release: concourse
     name: tsa
     properties:
