@@ -270,8 +270,8 @@
     "stemcellSha1Azure": "[variables(concat('stemcellSha1Azure', parameters('stemcellOSVersion')))]",
     "stemcellUrlAzureTrusty": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-trusty-go_agent?v=3586.48",
     "stemcellSha1AzureTrusty": "a8d223388dcd55997a137697dd371f14caebe00d",
-    "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97.22",
-    "stemcellSha1AzureXenial": "ad84cafba5486bb4ff015d60d912fc534addf434",
+    "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v=97.18",
+    "stemcellSha1AzureXenial": "317ae52b65e5ccbfa87c562e95843e29e200c74e",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
       "boshCliUrl": "https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64",
