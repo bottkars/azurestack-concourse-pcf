@@ -44,11 +44,11 @@ instance_groups:
       main_team:
         auth:
           local:
-            users: [test]
+            users: [ciuser]
 
       add_local_users:
-      - test:test
-      
+      - ciuser:Password123!
+
   - release: concourse
     name: tsa
     properties:

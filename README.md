@@ -1,17 +1,20 @@
 # azurestack-concourse-pcf
-Concourse PCF Pipeline for Azure Stack
+Concourse CI for Azure Stack
 
 this is a modified version of  
-https://github.com/Azure/azure-quickstart-templates/tree/master/concourse-ci  to run on AzureStack
-pipelines can be added from pivnet
+https://github.com/Azure/azure-quickstart-templates/tree/master/concourse-ci  to run on AzureStack  
+This Template deploys Concourse 4.2 to AzureStack using a bosh deployment and managed disks
 
 ## getting started  
 
+tbd  
+
 ### parameters required  
 
-
+tbd  
 
 ## after deployment  
+
 once Concourse is deployed, open the webpage [concourse](http://vmjump-concourse.local.cloudapp.azurestack.external:8080)  
 
 download the fly executable into you path
@@ -22,7 +25,7 @@ fly -t ci login -c http://vmjump-concourse.local.cloudapp.azurestack.external:80
 ```
 
 default user ise ciuser / Password123!  
-clone into https://github.com/pivotal-cf/pcf-pipelines/tree/master/install-pcf/azure  
+clone into https://github.com/pivotal-cf/pcf-pipelines 
 
 ```powershell
 git clone https://github.com/pivotal-cf/pcf-pipelines  
