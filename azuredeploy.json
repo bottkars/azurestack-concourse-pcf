@@ -274,7 +274,7 @@
     "stemcellSha1AzureXenial": "ad84cafba5486bb4ff015d60d912fc534addf434",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
-      "boshCliUrl": "https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-darwin-amd64",
+      "boshCliUrl": "https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64",
       "boshAzureCPIReleaseUrl": "https://bosh.io/d/github.com/cloudfoundry-incubator/bosh-azure-cpi-release?v=35.4.0",
       "boshAzureCPIReleaseSha1": "372c0220e2e38ca9201135eccb52ff912f2d0538"
     },
