@@ -106,7 +106,7 @@ variables:
 stemcells:
 - alias: xenial
   os: ubuntu-xenial
-  version: 97.18
+  version: 97.22
 
 update:
   canaries: 1

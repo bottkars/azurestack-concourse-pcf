@@ -193,6 +193,8 @@ export BOSH_ENVIRONMENT=$(get_setting INTERNAL_IP_FOR_BOSH)
 export BOSH_CLIENT=admin
 export BOSH_CLIENT_SECRET="\$(bosh int ~/bosh-deployment-vars.yml --path /admin_password)"
 export BOSH_CA_CERT="\$(bosh int ~/bosh-deployment-vars.yml --path /director_ssl/ca)"
+export BOSH_LOG_LEVEL="$(get_setting LOG_LEVEL_FOR_BOSH)"
+export BOSH_LOG_PATH="./run.log"
 
 bosh alias-env azure
 bosh -e azure login
@@ -227,12 +229,10 @@ if [ "${stemcell_os_version}" = "Trusty" ]; then
   -o ~/example_manifests/use-compiled-releases.yml \\
 EOF
   else
-
  cp  "${manifests_dir}/concourse-xenial.yml"  "${manifests_dir}/concourse.yml"
- cat >> "deploy_concourse.sh" << EOF
-  -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
-EOF
-
+# cat >> "deploy_concourse.sh" << EOF
+#  -o ~/example_manifests/use-compiled-releases-xenial-stemcell.yml \\
+#EOF
 fi
 
 
