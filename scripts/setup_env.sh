@@ -138,7 +138,6 @@ echo "Prepare Bosh deployment script"
 cat > "deploy_bosh.sh" << EOF
 #!/usr/bin/env bash
 set -e
-# export BOSH_LOG_LEVEL="debug"
 export BOSH_LOG_LEVEL="$(get_setting LOG_LEVEL_FOR_BOSH)"
 export BOSH_LOG_PATH="./run.log"
 bosh create-env ~/example_manifests/bosh.yml \\

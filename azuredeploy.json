@@ -200,7 +200,7 @@
     },
     "boshLogLevel": {
       "type": "string",
-      "defaultValue": "error",
+      "defaultValue": "debug",
       "allowedValues": [
         "debug",
         "info",
