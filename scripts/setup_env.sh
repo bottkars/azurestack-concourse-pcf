@@ -164,6 +164,9 @@ bosh create-env ~/example_manifests/bosh.yml \\
   -v tenant_id=${tenant_id} \\
   -v client_id=${client_id} \\
   -v client_secret=${client_secret} \\
+  -v stemcell_sha1=$(get_setting STEMCELL_SHA1) \\
+  -v stemcell_url=$(get_setting STEMCELL_URL) \\
+  -v stemcell_release=$(get_setting STEMCELL_RELEASE) \\
 EOF
 
 if [ $(get_setting KEEP_UNREACHABLE_VMS) = "true" ]; then
@@ -220,6 +223,9 @@ bosh -e azure -n deploy -d concourse ~/example_manifests/concourse.yml \\
   -v basic_auth_password='$(escape_password $(get_setting CONCOURSE_PASSWORD))' \\
   -v web_ip=$(get_setting CONCOURSE_PUBLIC_IP) \\
   -v external_url="http://$(get_setting CONCOURSE_PUBLIC_IP):8080"\\
+  -v stemcell_sha1=$(get_setting STEMCELL_SHA1) \\
+  -v stemcell_url=$(get_setting STEMCELL_URL) \\
+  -v stemcell_release=$(get_setting STEMCELL_RELEASE) \\
 EOF
 
 stemcell_os_version=$(get_setting STEMCELL_OS_VERSION)
