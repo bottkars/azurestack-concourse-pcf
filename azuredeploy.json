@@ -274,7 +274,7 @@
     "stemcellReleaseAzureTrusty": "3586.48",
     "stemcellUrlAzureXenial": "https://bosh.io/d/stemcells/bosh-azure-hyperv-ubuntu-xenial-go_agent?v28",
     "stemcellSha1AzureXenial": "623f2616b9adb429419860fc353321f66256cdb5",
-    "stemcellReleaseAzureXenial": "92.28",
+    "stemcellReleaseAzureXenial": "97.28",
     "environmentAzureStack": {
       "serviceHostBase": "[parameters('azureStackDomain')]",
       "boshCliUrl": "https://github.com/cloudfoundry/bosh-cli/releases/download/v5.3.1/bosh-cli-5.3.1-linux-amd64",
