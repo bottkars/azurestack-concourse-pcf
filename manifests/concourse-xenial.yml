@@ -32,9 +32,6 @@ instance_groups:
 
       external_url: ((external_url))
 
-      basic_auth_username: ((basic_auth_username))
-      basic_auth_password: ((basic_auth_password))
-
       postgresql:
         database: &db_name atc
         role: &db_role
@@ -44,10 +41,10 @@ instance_groups:
       main_team:
         auth:
           local:
-            users: [ciuser]
+            users: [((basic_auth_username))]
 
       add_local_users:
-      - ciuser:Password123!
+      - ((basic_auth_username)):((basic_auth_password))
 
   - release: concourse
     name: tsa
