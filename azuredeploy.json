@@ -603,6 +603,7 @@
               "SUBNET_ADDRESS_RANGE_FOR_CONCOURSE": "[variables('subnetAddressRangeForConcourse')]",
               "SUBNET_GATEWAY_FOR_CONCOURSE": "[variables('subnetgatewayForConcourse')]",
               "CONCOURSE_PUBLIC_IP": "[reference(concat(parameters('vmName'),'-concourse')).ipAddress]",
+              "CONCOURSE_FQDN": "[reference(concat(parameters('vmName'), '-concourse')).dnsSettings.fqdn]",
               "NSG_NAME_FOR_BOSH": "[variables('boshNetworkSecurityGroup')]",
               "NSG_NAME_FOR_CONCOURSE": "[variables('concourseNetworkSecurityGroup')]",
               "SUBSCRIPTION_ID": "[subscription().subscriptionId]",
@@ -716,7 +717,7 @@
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/resetpassword')]",
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'),'/extensions/resetpassword')]"
       ],
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -725,7 +726,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[variables('filesToDownload')]",
-          "timestamp": 3
+          "timestamp": 4
         },
         "protectedSettings": {
           "commandToExecute": "[concat('bash -l -c \"./setup_env.sh', ' ', parameters('tenantID'), ' ', parameters('clientID'), ' ', parameters('clientSecret'), ' 2>&1 | tee /home/', parameters('adminUsername'), '/install.log\"')]"

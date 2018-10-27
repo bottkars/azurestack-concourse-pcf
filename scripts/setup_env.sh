@@ -56,8 +56,8 @@ home_dir="/home/$username"
 
 # https://bosh.io/docs/cli-v2-install/#additional-dependencies
 echo "Installing OS specified dependencies for bosh create-env command"
-retryop "apt-get update && apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev libreadline7 libreadline-dev libyaml-dev libsqlite3-dev sqlite3"
-
+retryop "apt-get update && apt-get install -y build-essential zlibc zlib1g-dev ruby ruby-dev openssl libxslt-dev libxml2-dev libssl-dev  libreadline-dev libyaml-dev libsqlite3-dev sqlite3"
+#libreadline6
 echo "Installing BOSH CLI"
 bosh_cli_url=$(get_setting BOSH_CLI_URL)
 wget $bosh_cli_url
@@ -222,7 +222,7 @@ bosh -e azure -n deploy -d concourse ~/example_manifests/concourse.yml \\
   -v basic_auth_username=$(get_setting CONCOURSE_USERNAME) \\
   -v basic_auth_password='$(escape_password $(get_setting CONCOURSE_PASSWORD))' \\
   -v web_ip=$(get_setting CONCOURSE_PUBLIC_IP) \\
-  -v external_url="http://$(get_setting CONCOURSE_PUBLIC_IP):8080"\\
+  -v external_url="http://$(get_setting CONCOURSE_FQDN):8080"\\
   -v stemcell_sha1=$(get_setting STEMCELL_SHA1) \\
   -v stemcell_url=$(get_setting STEMCELL_URL) \\
   -v stemcell_release=$(get_setting STEMCELL_RELEASE) \\
