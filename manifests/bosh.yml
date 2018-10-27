@@ -3,9 +3,9 @@ name: bosh
 
 releases:
 - name: bosh
-  version: "268.1.0"
-  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=268.1.0
-  sha1: 473f6dc521262998c59edd38b687fbdbffb88b64
+  version: "268.2.0"
+  url: https://bosh.io/d/github.com/cloudfoundry/bosh?v=268.2.0
+  sha1: 5b18a671401f5bc001b216b74e7d03307cfbbe7a
 - name: bpm
   version: "0.13.0"
   url: https://bosh.io/d/github.com/cloudfoundry-incubator/bpm-release?v=0.13.0
