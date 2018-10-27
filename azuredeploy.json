@@ -691,11 +691,32 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmName'),'/initdevbox')]",
-      "apiVersion": "2015-06-15",
+      "name": "[concat(parameters('vmName'),'/', 'VMAccessForLinux')]",
+      "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]"
+      ],
+      "properties": {
+          "publisher": "Microsoft.OSTCExtensions",
+          "type": "VMAccessForLinux",
+          "typeHandlerVersion": "1.4",
+          "settings": {},
+          "protectedSettings": {
+              "username": "[parameters('adminusername')]",
+              "ssh_key": "[parameters('sshKeyData')]"
+          },
+          "autoUpgradeMinorVersion": true
+      }
+    },  
+    {
+      "type": "Microsoft.Compute/virtualMachines/extensions",
+      "name": "[concat(parameters('vmName'),'/initdevbox')]",
+      "apiVersion": "2017-03-30",
+      "location": "[parameters('location')]",
+      "dependsOn": [
+        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmName'))]",
+        "[concat(parameters('vmName'),'/', 'VMAccessForLinux')]"
       ],
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
