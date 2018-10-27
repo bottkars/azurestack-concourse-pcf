@@ -11,7 +11,7 @@
     },
     "ubuntuOSVersion": {
       "type": "string",
-      "defaultValue": "18.04-LTS",
+      "defaultValue": "16.04-LTS",
       "allowedValues": [
         "14.04.05-LTS",
         "16.04-LTS",
