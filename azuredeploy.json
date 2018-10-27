@@ -11,10 +11,11 @@
     },
     "ubuntuOSVersion": {
       "type": "string",
-      "defaultValue": "16.04-LTS",
+      "defaultValue": "18.04-LTS",
       "allowedValues": [
         "14.04.05-LTS",
-        "16.04-LTS"
+        "16.04-LTS",
+        "18.04-LTS"
       ],
       "metadata": {
         "description": "User name for the Virtual Machine"
