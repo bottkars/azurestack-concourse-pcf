@@ -11,7 +11,7 @@
     },
     "ubuntuOSVersion": {
       "type": "string",
-      "defaultValue": "16.04-LTS",
+      "defaultValue": "18.04-LTS",
       "allowedValues": [
         "14.04.05-LTS",
         "16.04-LTS",
@@ -704,7 +704,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": "[variables('filesToDownload')]",
-          "timestamp": 2
+          "timestamp": 3
         },
         "protectedSettings": {
           "commandToExecute": "[concat('bash -l -c \"./setup_env.sh', ' ', parameters('tenantID'), ' ', parameters('clientID'), ' ', parameters('clientSecret'), ' 2>&1 | tee /home/', parameters('adminUsername'), '/install.log\"')]"
