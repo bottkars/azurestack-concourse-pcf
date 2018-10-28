@@ -692,7 +692,7 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox/', 'resetpassword')]",
+      "name": "[concat(parameters('vmPrefix'),'-jumpbox','/resetpassword')]",
       "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "dependsOn": [
