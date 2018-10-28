@@ -5,14 +5,14 @@ azs:
 vm_types:
 - name: compilation
   cloud_properties:
-    instance_type: Standard_D1_v2
+    instance_type: Standard_F2s_v2
 - name: concourse_web_or_db
   cloud_properties:
-    instance_type: Standard_DS2_v2
+    instance_type: Standard_F2s_v2
     security_group: ((security_group))
 - name: concourse_worker
   cloud_properties:
-    instance_type: Standard_DS4_v2
+    instance_type: Standard_F4s_v2
     security_group: ((security_group))
     ephemeral_disk:
       size: ((ephemeral_disk_size))
