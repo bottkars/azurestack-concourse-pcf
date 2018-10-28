@@ -744,7 +744,7 @@
     },
     "concourseEndpoint": {
       "type": "string",
-      "value": "[concat('http://', reference(concat('pip','-', parameters('vmPrefix'),'-','concourse').dnsSettings.fqdn),':8080')]"
+      "value": "[concat('http://', reference(variables('vmName')).dnsSettings.fqdn,':8080')]"
     }
   }
 }
