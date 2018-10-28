@@ -712,7 +712,7 @@
     },  
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox',/initvmPrefix')]",
+      "name": "[concat(parameters('vmPrefix'),'-jumpbox','/initvm')]",
       "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "dependsOn": [
