@@ -101,7 +101,7 @@
     },
     "boshVmSize": {
       "type": "string",
-      "defaultValue": "Standard_F8s_v2",
+      "defaultValue": "Standard_F4s_v2",
       "metadata": {
         "description": "Please check if the region support this VM size https://azure.microsoft.com/en-us/regions/#services. For more information about virtual machine sizes, see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/"
       }
@@ -702,12 +702,12 @@
           "publisher": "Microsoft.OSTCExtensions",
           "type": "VMAccessForLinux",
           "typeHandlerVersion": "1.4",
+          "autoUpgradeMinorVersion": true,
           "settings": {},
           "protectedSettings": {
               "username": "[parameters('adminusername')]",
               "ssh_key": "[parameters('sshKeyData')]"
-          },
-          "autoUpgradeMinorVersion": true
+          }
       }
     },  
     {
