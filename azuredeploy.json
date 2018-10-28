@@ -4,7 +4,7 @@
   "parameters": {
     "vmPrefix": {
       "type": "string",
-      "defaultValue": "concourse",
+      "defaultValue": "pcf",
       "metadata": {
         "description": "Name of the vm, will be used as DNS Name for the Public IP used to access the Virtual Machine"
       }
@@ -227,7 +227,7 @@
     "storageAccountType": "Standard_LRS",
     "vmStorageAccountContainerName": "vhds",
     "storageid": "[resourceId('Microsoft.Storage/storageAccounts', variables('defaultStorageAccountName'))]",
-    "virtualNetworkName": "vnet",
+    "virtualNetworkName": "vnet-concourse",
     "virtualNetworkAddressSpace": "10.20.0.0/16",
     "vnetID": "[resourceId('Microsoft.Network/virtualNetworks', variables('virtualNetworkName'))]",
     "subnetNameForBosh": "Bosh",
@@ -241,8 +241,11 @@
     "jumpboxNetworkSecurityGroup": "nsg-jumpbox",
     "boshNetworkSecurityGroup": "nsg-bosh",
     "concourseNetworkSecurityGroup": "nsg-concourse",
-    "vmSize": "Standard_D1",
-    "nicName": "[concat(parameters('vmPrefix'),'-jumpbox')]",
+    "vmSize": "Standard_F2s_v2",
+    "vmName": "'vm','-',parameters('vmPrefix'),'-','jumpbox'",
+    "pipJumpbox": "concat('pip','-',parameters('vmPrefix'), '-','jumpbox'",
+    "pipConcourse": "concat('pip','-',parameters('vmPrefix'), '-','concourse'",
+    "nicName": "[concat('nic1','-',variables('vmName'))]",
     "jumpboxPrivateIPAddress": "10.20.0.100",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
@@ -494,26 +497,26 @@
       }
     },
     {
-      "apiVersion": "2015-06-15",
+      "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox')]",
+      "name": "[variables('pipJumpbox')]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
         "dnsSettings": {
-          "domainNameLabel": "[toLower(concat(parameters('vmPrefix'),'-jumpbox'))]"
+          "domainNameLabel": "[toLower(concat(parameters('vmPrefix'),'-','jumpbox'))]"
         }
       }
     },
     {
       "apiVersion": "2017-10-01",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[concat(parameters('vmPrefix'), '-concourse')]",
+      "name": "[variables('pipConcourse')]",
       "location": "[parameters('location')]",
       "properties": {
         "publicIPAllocationMethod": "Static",
         "dnsSettings": {
-          "domainNameLabel": "[toLower(concat(parameters('vmPrefix'),'-concourse'))]"
+          "domainNameLabel": "[toLower(concat(parameters('vmPrefix'),'-','concourse'))]"
         }
       }
     },
@@ -550,7 +553,7 @@
       "name": "[variables('nicName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/publicIPAddresses/', concat(parameters('vmPrefix'), '-jumpbox'))]",
+        "[concat('Microsoft.Network/publicIPAddresses/', variables('pipJumpbox'))]",
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
         "[concat('Microsoft.Network/networkSecurityGroups/', variables('jumpboxNetworkSecurityGroup'))]"
       ],
@@ -565,7 +568,7 @@
               "privateIPAllocationMethod": "Static",
               "privateIPAddress": "[variables('jumpboxPrivateIPAddress')]",
               "publicIPAddress": {
-                "id": "[resourceId('Microsoft.Network/publicIPAddresses', concat(parameters('vmPrefix'), '-jumpbox'))]"
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('pipJumpbox'))]"
               },
               "subnet": {
                 "id": "[variables('subnetRefForBosh')]"
@@ -602,8 +605,8 @@
               "SUBNET_NAME_FOR_CONCOURSE": "[variables('subnetNameForConcourse')]",
               "SUBNET_ADDRESS_RANGE_FOR_CONCOURSE": "[variables('subnetAddressRangeForConcourse')]",
               "SUBNET_GATEWAY_FOR_CONCOURSE": "[variables('subnetgatewayForConcourse')]",
-              "CONCOURSE_PUBLIC_IP": "[reference(concat(parameters('vmPrefix'),'-concourse')).ipAddress]",
-              "CONCOURSE_FQDN": "[reference(concat(parameters('vmPrefix'), '-concourse')).dnsSettings.fqdn]",
+              "CONCOURSE_PUBLIC_IP": "[reference(variables('pipConcourse')).ipAddress]",
+              "CONCOURSE_FQDN": "[reference(variables('vmName')).dnsSettings.fqdn]",
               "NSG_NAME_FOR_BOSH": "[variables('boshNetworkSecurityGroup')]",
               "NSG_NAME_FOR_CONCOURSE": "[variables('concourseNetworkSecurityGroup')]",
               "SUBSCRIPTION_ID": "[subscription().subscriptionId]",
@@ -639,7 +642,7 @@
     {
       "apiVersion": "2017-03-30",
       "type": "Microsoft.Compute/virtualMachines",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox')]",
+      "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
         "Microsoft.Resources/deployments/generate-customdata",
@@ -651,7 +654,7 @@
           "vmSize": "[variables('vmSize')]"
         },
         "osProfile": {
-          "computerName": "[concat(parameters('vmPrefix'),'-jumpbox')]",
+          "computerName": "[concat(parameters('vmPrefix'),'-','jumpbox')]",
           "adminUsername": "[parameters('adminUsername')]",
           "linuxConfiguration": {
             "disablePasswordAuthentication": true,
@@ -692,11 +695,11 @@
     },
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox','/resetpassword')]",
+      "name": "[concat(variables('vmName'),'/resetpassword')]",
       "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmPrefix'),'-jumpbox')]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]"
       ],
       "properties": {
           "publisher": "Microsoft.OSTCExtensions",
@@ -712,12 +715,12 @@
     },  
     {
       "type": "Microsoft.Compute/virtualMachines/extensions",
-      "name": "[concat(parameters('vmPrefix'),'-jumpbox','/initvm')]",
+      "name": "[concat(variables('vmName'),'/initvm')]",
       "apiVersion": "2017-03-30",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmPrefix'),'-jumpbox')]",
-        "[concat('Microsoft.Compute/virtualMachines/', parameters('vmPrefix'),'-jumpbox','/extensions/resetpassword')]"
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'))]",
+        "[concat('Microsoft.Compute/virtualMachines/', variables('vmName'),'/extensions/resetpassword')]"
       ],
       "properties": {
         "publisher": "Microsoft.Azure.Extensions",
@@ -737,11 +740,11 @@
   "outputs": {
     "sshjumpbox": {
       "type": "string",
-      "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(concat('Microsoft.Network/publicIPAddresses/', parameters('vmPrefix'), '-jumpbox')).dnsSettings.fqdn)]"
+      "value": "[concat('ssh ', parameters('adminUsername'), '@', reference(concat('Microsoft.Network/publicIPAddresses/','pip','-', parameters('vmPrefix'),'-','jumpbox')).dnsSettings.fqdn)]"
     },
     "concourseEndpoint": {
       "type": "string",
-      "value": "[concat('http://', reference(concat(parameters('vmPrefix'), '-concourse')).ipAddress, ':8080')]"
+      "value": "[concat('http://', reference(concat('pip','-', parameters('vmPrefix'),'-','concourse').dnsSettings.fqdn),':8080')]"
     }
   }
 }
