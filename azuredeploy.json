@@ -11,7 +11,7 @@
     },
     "ubuntuOSVersion": {
       "type": "string",
-      "defaultValue": "16.04-LTS",
+      "defaultValue": "18.04-LTS",
       "allowedValues": [
         "14.04.05-LTS",
         "16.04-LTS",
@@ -101,7 +101,7 @@
     },
     "boshVmSize": {
       "type": "string",
-      "defaultValue": "Standard_D2_v2",
+      "defaultValue": "Standard_F8s_v2",
       "metadata": {
         "description": "Please check if the region support this VM size https://azure.microsoft.com/en-us/regions/#services. For more information about virtual machine sizes, see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/"
       }
