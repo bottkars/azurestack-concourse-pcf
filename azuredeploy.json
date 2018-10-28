@@ -101,7 +101,7 @@
     },
     "boshVmSize": {
       "type": "string",
-      "defaultValue": "Standard_F4s_v2",
+      "defaultValue": "Standard_F2s_v2",
       "metadata": {
         "description": "Please check if the region support this VM size https://azure.microsoft.com/en-us/regions/#services. For more information about virtual machine sizes, see https://azure.microsoft.com/en-us/documentation/articles/virtual-machines-linux-sizes/"
       }
@@ -241,7 +241,7 @@
     "jumpboxNetworkSecurityGroup": "nsg-jumpbox",
     "boshNetworkSecurityGroup": "nsg-bosh",
     "concourseNetworkSecurityGroup": "nsg-concourse",
-    "vmSize": "Standard_D1",
+    "vmSize": "Standard_F2s_v2",
     "nicName": "[concat(parameters('vmPrefix'),'-jumpbox')]",
     "jumpboxPrivateIPAddress": "10.20.0.100",
     "imagePublisher": "Canonical",
