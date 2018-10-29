@@ -246,7 +246,7 @@
     "jumpboxPrivateIPAddress": "10.20.0.100",
     "imagePublisher": "Canonical",
     "imageOffer": "UbuntuServer",
-    "sshKeyPath": "[concat('/home/', parameters('adminUsername'), '/.ssh/authorized_keys')]",
+    "sshKeyPath": "[concat('/home/',parameters('adminUsername'),'/.ssh/authorized_keys')]",
     "baseUriAzureStack": "[parameters('_artifactsLocation')]",
     "filesToDownloadAzureStack": [
       "[uri(variables('baseUriAzureStack'), 'scripts/setup_env.sh')]",

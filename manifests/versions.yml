@@ -1,11 +1,16 @@
+# this file is partially maintained by CI; the concourse and garden-runc
+# versions and sha1s are automatically bumped, while the rest are preserved
+# as-is.
+#
+# this should make getting started easy while being easy enough to maintain
+# manually. feel free to PR sane defaults along with newly supported
+# infrastructures and such!
 ---
 concourse_version: '4.2.1'
 concourse_sha1: '470a6fdd7cb82fc723d7d78930c7d261ca4a6cb4'
-garden_runc_version: '1.16.7'
-garden_runc_sha1: 'c5d6bedc7aec670cda0f9808de67fe2feeb4d583'
+concourse_windows_worker_version: '3.13.0'
+concourse_windows_worker_sha1: '98454e4863c3819f1ccfc1d0b0d07f6ee4efdb1b'
+garden_runc_version: '1.16.3'
+garden_runc_sha1: '2a7c813e7e4d862e19334addf022916fb6b91eb0'
 postgres_version: '30'
 postgres_sha1: 'a798999d29b9f5aa12035cff907b26674b491200'
-virtualbox_cpi_version: '0.0.12'
-virtualbox_cpi_sha1: 537c77b087eeda859b1eb89553efa6f808214d50
-virtualbox_stemcell_version: '3468.5'
-virtualbox_stemcell_sha1: 25301a41c15caad859b66efc0fd75bacdfc57dab
